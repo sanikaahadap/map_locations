@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+
+    <style>
+        #map {
+            height: 1900px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script>
+    var map = L.map('map').setView([19.0556, 72.9097], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var markers = [
+        {coords: [19.05103192864546, 72.91024625758854], popupText: "Mahanagar Gas CNG Station, Patilwadi", link: "https://maps.app.goo.gl/8XaKUWe8siFjE2rg8"},
+        {coords: [19.068142246761965, 72.90024500109745], popupText: "HP Petrol Pump: N.H.T.C and CNG", link: "https://maps.app.goo.gl/31yaN85Fa63EvTpRA"},
+        {coords: [19.047588332554575, 72.87846128447316], popupText: "Mahanagar Gas CNG Station, Trombay Industrial Area", link: "https://example.com/3"},
+        {coords: [19.046902481950177, 72.91398424632858], popupText: "Hement Karkare CNG Station", link: "https://maps.app.goo.gl/DA9Vt2D49Vb2Jw888"},
+        {coords: [19.054161817688918, 72.89350085748814], popupText: "Hp petrol+ cng pump, Sindhi Society", link: "https://maps.app.goo.gl/7annw8UecMQUonif8"},
+        {coords: [19.04690390000179, 72.91384141145812], popupText: "Mahanagar Gas, Govandi East", link: "https://maps.app.goo.gl/nACb4p14fGgFBMv18"}
+    ];
+
+    markers.forEach(markerInfo => {
+        var markerIcon = L.icon({
+            iconUrl: 'location.png',
+            iconSize: [40, 40], // Set the size of the custom marker image
+        });
+
+        var marker = L.marker(markerInfo.coords, {icon: markerIcon}).addTo(map);
+
+        var popup = L.popup({"maxWidth": "100%"});
+        var htmlContent = `<div style="width: 200px;"><b>${markerInfo.popupText}</b><br><a href="${markerInfo.link}" target="_blank">Click here for more info</a></div>`;
+        popup.setContent(htmlContent);
+        marker.bindPopup(popup);
+    });
+</script>
+
+</body>
+</html>
